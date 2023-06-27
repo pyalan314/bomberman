@@ -248,7 +248,7 @@ public class Player extends MObject implements Observer{
     private int bombnum, bombpower, life, score, speed,bombused;
     private BombSeq bombs;
     private Bomb pickBomb;
-    private boolean isPick;
+    // private boolean isPick;
     private boolean isPowered, powerBombUsed, isDiseased, isJacketed, isThrowable, isKickale;
     final int MAX_BOMBNUM = 9, MAX_BOMBPOWER = 9,  MAX_SPEED = 9;
     public void addLife() {

@@ -6,7 +6,6 @@ import java.awt.image.CropImageFilter;
 import java.awt.image.FilteredImageSource;
 import java.io.*;
 import javax.imageio.ImageIO;
-import java.lang.Object.*;
 import java.util.Observable;
 import java.util.Vector;
 import java.util.Observer;
@@ -19,13 +18,15 @@ public class BombPanel extends JPanel implements KeyListener, Observer, ActionLi
     private boolean is2play, isNew, tileEffect=false;;
     private int stage, pinfo[][];
     private Player player[];
-    private Vector item, enemy, bomb;
+    private Vector<Enemy> enemy;
+    // private Vector item, bomb;
     //private Item item[];
-    private int numPlayer, numItem, numEnemy, numBomb;
+    //private int numPlayer, numItem, numEnemy, numBomb;
+    private int numPlayer, numEnemy, numBomb;
     private Image wall[], temp, floor[], tile[][], enemyImage[][][], man[][][],ItemImage[],bombImage[],flameImage[][][],manD[],enemyImageD[],kickImage[][],manT[][],powerImage[];
     private Image info, timer, disabled, xnum[], num[], win, lose;
     private CropImageFilter cropFilter;
-    private int[] isPressed = new int[2];
+    // private int[] isPressed = new int[2];
     private Map map;
     private BombSeq bombs;
     private TimerDisplay tm;
@@ -64,11 +65,12 @@ public class BombPanel extends JPanel implements KeyListener, Observer, ActionLi
         paintTimer.start();
         if(is2play) player=new Player[2];
         else player=new Player[1];
-        item=new Vector();
-        enemy=new Vector();
+        // item=new Vector();
+        enemy=new Vector<Enemy>();
         map = Map.instance("Map/map."+stage, is2play);
-        numPlayer=0; numEnemy=0; numItem=0; numBomb=0;
         bombs = BombSeq.instance();
+        //numPlayer=0; numEnemy=0; numItem=0; numBomb=0;
+        numPlayer=0; numEnemy=0; numBomb=0;
         int p=0;
         for(i=0;i<13;i++){
             for(j=0;j<15;j++){
@@ -587,7 +589,7 @@ public class BombPanel extends JPanel implements KeyListener, Observer, ActionLi
             inf="";
             for(int x=0;x<15;x++){
                 inf=inf+map.getElementU(y, x);
-                Font f=new Font("Helvetica",Font.BOLD,64);
+                // Font f=new Font("Helvetica",Font.BOLD,64);
                 g.drawString(inf, 480+250, y*12);
             }
         }
@@ -595,7 +597,7 @@ public class BombPanel extends JPanel implements KeyListener, Observer, ActionLi
             inf="";
             for(int x=0;x<15;x++){
                 inf=inf+map.getElementM(y, x);
-                Font f=new Font("Helvetica",Font.BOLD,64);
+                // Font f=new Font("Helvetica",Font.BOLD,64);
                 g.drawString(inf, 480+250, (y+13)*12);
             }
         }
@@ -603,7 +605,7 @@ public class BombPanel extends JPanel implements KeyListener, Observer, ActionLi
             inf="";
             for(int x=0;x<15;x++){
                 inf=inf+map.getElement(y, x);
-                Font f=new Font("Helvetica",Font.BOLD,64);
+                // Font f=new Font("Helvetica",Font.BOLD,64);
                 g.drawString(inf, 480+250, (y+26)*12);
             }
         }

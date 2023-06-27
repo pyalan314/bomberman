@@ -112,7 +112,7 @@ public class Bomb extends GObject implements ActionListener{
                 else if (shape==5)shape=0;
                 if (counting==8){explose();}
             }else if(obj.equals(exploseTimer)){
-                int i,j,k;
+                int i,j;
                 int tempx=0,tempy=0,dir=0;
                 if(!close){
                     if(shape<4&&flamelength<length)

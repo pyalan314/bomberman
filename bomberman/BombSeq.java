@@ -16,7 +16,7 @@ public class BombSeq {
         return unique;
     }
     private BombSeq() {
-        bombV = new Vector();        
+        bombV = new Vector<Bomb>();        
     }
     /**
      * insert a new bomb
@@ -40,5 +40,5 @@ public class BombSeq {
     }
     public void clearBomb() {unique = null;}
     private static BombSeq unique = null;
-    private static Vector bombV;
+    private static Vector<Bomb> bombV;
 }

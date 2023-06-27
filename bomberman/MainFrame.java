@@ -15,7 +15,7 @@ public class MainFrame extends JFrame implements WindowListener,ActionListener, 
     private JMenuItem jmis[];
     private JFileChooser fileChooser;
     private int status;
-    private String fname;
+    //private String fname;
     private boolean is2play;
     private int stage, pinfo[][], check;
     private boolean isNew;
