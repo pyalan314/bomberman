@@ -90,9 +90,8 @@ public class Enemy extends MObject {
                 case 'r': tempx += 1; break;
             }
             positionx = tempx*SIZE;
-            positiony = tempy*SIZE;;
-            setChanged();
-            this.notifyObservers(block());
+            positiony = tempy*SIZE;
+            this.change.firePropertyChange(null, null, block());
         }
         else AIlow();
     }

@@ -4,12 +4,21 @@
  */
 
 package bomberman;
-import java.util.Observable;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 /**
  *
  * @author kailun
  */
-public abstract class GObject extends Observable {
+public abstract class GObject {
+    protected PropertyChangeSupport change = new PropertyChangeSupport(this);
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        change.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        change.removePropertyChangeListener(listener);
+    }
     public GObject(int i, int x, int y) {
         id = i;
         positionx = x; positiony = y;

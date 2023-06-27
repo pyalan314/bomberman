@@ -131,8 +131,7 @@ public class Bomb extends GObject implements ActionListener{
                                 if(map.isWall(tempy, tempx)||map.getElement(tempy, tempx)=='W') break;
                                 if(isPowered){
                                     if(map.isEnemy(tempy, tempx)){
-                                        setChanged();
-                                        this.notifyObservers(tempy*15+tempx);
+                                        change.firePropertyChange(null, null, tempy*15+tempx);
                                     }
                                     if(map.isBomb(tempy, tempx))
                                         map.setElement('W', tempy*15+tempx);
@@ -167,8 +166,7 @@ public class Bomb extends GObject implements ActionListener{
                                 }
                                 if(map.isPlayer(tempy, tempx)||map.isEnemy(tempy, tempx)){
                                     if(map.isEnemy(tempy, tempx)){
-                                        setChanged();
-                                        this.notifyObservers(tempy*15+tempx);
+                                        this.change.firePropertyChange(null, null, tempy*15+tempx);
                                     }
                                     if(dir<=1)
                                         tempx=oneStepb(tempx,tempy,dir);
@@ -320,7 +318,11 @@ public class Bomb extends GObject implements ActionListener{
     /**
      * set the bomb disable
      */
-    public void disable(){map.setElement(' ', this.block());explosed=true;status=2;setChanged();notifyObservers();}
+    public void disable(){
+        map.setElement(' ', this.block());
+        explosed=true;status=2;
+        this.change.firePropertyChange(null, null, null);
+    }
     /**
      * return the flame length of given direction
      * @param dir

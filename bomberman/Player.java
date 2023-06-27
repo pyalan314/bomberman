@@ -4,14 +4,14 @@
  */
 
 package bomberman;
-import java.util.Observable;
-import java.util.Observer;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import javax.swing.Timer;
 /**
  *
  * @author kailun
  */
-public class Player extends MObject implements Observer{
+public class Player extends MObject implements PropertyChangeListener{
     public Player(int i, int x, int y) {
         super(i,x,y, '$');
         direction = 'd'; symbol = 1; PACE = 8; gestureMax = 3;
@@ -93,11 +93,10 @@ public class Player extends MObject implements Observer{
                 tempbomb = new Bomb(id, tempx, tempy, getBombpower(),false);
                 bombused++;
             }
-            tempbomb.addObserver(this);
+            tempbomb.addPropertyChangeListener(this);
             bombs.insertB(tempbomb);
             map.setElement('@', tempbomb.block());
-            setChanged();
-            this.notifyObservers(tempbomb);
+            this.change.firePropertyChange(null, null, tempbomb);
         }
     }
     /**
@@ -224,8 +223,7 @@ public class Player extends MObject implements Observer{
     public void updateScore(int type) {
         score += (type+1)*100;
     }
-    public void update() {bombused--;}
-    public void update(Observable o, Object arg) {bombused--;}
+    public void propertyChange(PropertyChangeEvent evt)  {bombused--;}
     public void setBombnum(int N) { bombnum = N; }
     public void addBombnum() { bombnum++; }
     public void setBombpower(int N) { bombpower = N; }

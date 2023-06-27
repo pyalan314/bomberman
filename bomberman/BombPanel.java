@@ -6,13 +6,14 @@ import java.awt.image.CropImageFilter;
 import java.awt.image.FilteredImageSource;
 import java.io.*;
 import javax.imageio.ImageIO;
-import java.util.Observable;
+
 import java.util.Vector;
-import java.util.Observer;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-public class BombPanel extends JPanel implements KeyListener, Observer, ActionListener{
+public class BombPanel extends JPanel implements KeyListener, PropertyChangeListener , ActionListener{
     int i=0,j=0,tileShape=1;
     final int NUM_KEY = 12;
     private boolean is2play, isNew, tileEffect=false;;
@@ -84,12 +85,12 @@ public class BombPanel extends JPanel implements KeyListener, Observer, ActionLi
                     Enemy tempEnemy=new Enemy(numEnemy++,j*32,i*32,c);
                     map.setElement(' ', i, j);
                     enemy.add(tempEnemy);
-                    tempEnemy.addObserver(this);}
+                    tempEnemy.addPropertyChangeListener(this);}
                 //if (map.isItemTile(i, j)){Item tempItem=new Item(numItem++,i,j,c);item.add(tempItem);}
             }
         }
         for(int k=0;k<numPlayer;k++)
-            player[k].addObserver(this);
+            player[k].addPropertyChangeListener(this);
         readIMap(); readIMan(); readIEnemy();readIItems();readIBomb();readIFlame(); readIInfo();
         tileAni();
     }
@@ -660,18 +661,21 @@ public class BombPanel extends JPanel implements KeyListener, Observer, ActionLi
         tm.timeout();
         System.out.println("gameover");
     }
-    public void update() {}
-    public void update(Observable o, Object arg) {
-        if(arg instanceof Bomb){
+    public void propertyChange(PropertyChangeEvent evt) {
+        Object source = evt.getSource();
+        // String propertyName = evt.getPropertyName();
+        // Object oldValue = evt.getOldValue();
+        Object newValue = evt.getNewValue();
+        if(newValue instanceof Bomb && source instanceof Player){
             Bomb tempBomb;
-            tempBomb=(Bomb)arg;
-            tempBomb.addObserver(this);
+            tempBomb=(Bomb)newValue;
+            tempBomb.addPropertyChangeListener(this);
             System.out.println("added");
-        }else if(arg instanceof Integer && o instanceof Bomb){
+        }else if(newValue instanceof Integer && source instanceof Bomb){
             System.out.println("update");
-            int b=(Integer)arg;
+            int b=(Integer)newValue;
             Bomb tempBomb2;
-            tempBomb2=(Bomb)o;
+            tempBomb2=(Bomb)source;
             for(int k=0;k<enemy.size();k++){
                 Enemy tempEnemy;
                 tempEnemy=(Enemy)enemy.get(k);
@@ -680,8 +684,8 @@ public class BombPanel extends JPanel implements KeyListener, Observer, ActionLi
                 break;
                 }
             }
-        }else if(arg instanceof Integer && o instanceof Enemy){
-            int temp = (Integer) arg;
+        }else if(newValue instanceof Integer && source instanceof Enemy){
+            int temp = (Integer) newValue;
             numBomb=bombs.getMax();
             Bomb tempBomb;
             for(int k=0;k<numBomb;k++){

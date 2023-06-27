@@ -35,8 +35,7 @@ public abstract class MObject extends GObject implements ActionListener{
      * change the gesture
      */
     public void changeGesture() {
-        setChanged();
-        notifyObservers();
+        change.firePropertyChange(null, null, null);
         if (gesture == gestureMax-1) gesture = 0;
         else gesture++;
     }
