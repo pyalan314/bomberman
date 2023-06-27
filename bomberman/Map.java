@@ -15,14 +15,15 @@ public class Map {
     private Map(String s, boolean is2play) {
         System.out.println("new map");
         DElement = new char[H][W]; UElement = new int[H][W]; MElement = new int[H][W];
-        try {
-            File inFile =new File(s);
-            FileInputStream fis=new FileInputStream(inFile);
-            InputStreamReader isr=new InputStreamReader(fis,Charset.forName("UTF-8"));
+        File inFile =new File(s);
+        try (FileInputStream fis=new FileInputStream(inFile);
+            InputStreamReader isr=new InputStreamReader(fis,Charset.forName("UTF-8"))){
             char[] chars=new char[8 * H * BOUND];
             while (isr.read(chars)<=0);
             for(int i=0;i<H;i++) for(int j=0;j<W;j++) DElement[i][j]=chars[17*i+j];
-        } catch (IOException ex) {System.out.println("error in reading map file");}
+        } catch (IOException ex) {
+            System.out.println("error in reading map file");
+        }
         int count = 0;
         for(int i=0;i<H;i++) {
             for(int j=0;j<W;j++) {

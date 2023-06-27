@@ -145,10 +145,9 @@ public class MainFrame extends JFrame implements WindowListener,ActionListener, 
         int result = fileChooser.showOpenDialog(null);
         if(result==JFileChooser.APPROVE_OPTION) fname = fileChooser.getSelectedFile().getPath();
         if(fname!="") {
-            try {
-                File inFile =new File(fname);
-                FileInputStream fis=new FileInputStream(inFile);
-                InputStreamReader isr=new InputStreamReader(fis,Charset.forName("UTF-8"));
+            File inFile =new File(fname);
+            try (FileInputStream fis = new FileInputStream(inFile);
+                InputStreamReader isr = new InputStreamReader(fis, Charset.forName("UTF-8"))) {
                 char[] chars=new char[500];
                 while (isr.read(chars)<=0);
                 int r=0;
@@ -159,9 +158,14 @@ public class MainFrame extends JFrame implements WindowListener,ActionListener, 
                 pinfo[1] = new int[] {Integer.parseInt(""+chars[r++]), Integer.parseInt(""+chars[r++]+chars[r++]+chars[r++]+chars[r++]+chars[r++]), Integer.parseInt(""+chars[r++]), Integer.parseInt(""+chars[r++]), Integer.parseInt(""+chars[r++]), Integer.parseInt(""+chars[r++]), Integer.parseInt(""+chars[r++]), Integer.parseInt(""+chars[r++]), Integer.parseInt(""+chars[r++])};
                 check = Integer.parseInt(""+chars[r++]+chars[r++]+chars[r++]+chars[r++]+chars[r++]+chars[r++]+chars[r++]+chars[r]);
                 System.out.println(encrypt(stage, is2play, pinfo));
-                if(check == encrypt(stage, is2play, pinfo)){System.out.println("The file is ok");isOK = true;}
-                else {System.out.println("The file is not ok");isOK = false;}
-            } catch (IOException ex) {System.out.println("The file is not ok"); isOK = false; }
+                if(check == encrypt(stage, is2play, pinfo)){
+                    System.out.println("The file is ok");isOK = true;
+                } else {
+                    System.out.println("The file is not ok");isOK = false;
+                }
+            } catch (IOException ex) {
+                System.out.println("The file is not ok"); isOK = false; 
+            }
         } else {isOK = false;System.out.println("No file is loaded");}
     }
     /**
