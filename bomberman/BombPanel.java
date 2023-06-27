@@ -16,7 +16,7 @@ import java.beans.PropertyChangeListener;
 public class BombPanel extends JPanel implements KeyListener, PropertyChangeListener , ActionListener{
     int i=0,j=0,tileShape=1;
     final int NUM_KEY = 12;
-    private boolean is2play, isNew, tileEffect=false;;
+    private boolean is2play, isNew, tileEffect=false;
     private int stage, pinfo[][];
     private Player player[];
     private Vector<Enemy> enemy;
