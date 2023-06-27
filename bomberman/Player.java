@@ -17,7 +17,7 @@ public class Player extends MObject implements Observer{
         direction = 'd'; symbol = 1; PACE = 8; gestureMax = 3;
         height = 42; width = 16;
         life = 3; score = 0; bombnum = 1; bombpower = 1; speed = 1;
-        bombs = bombs.instance();
+        bombs = BombSeq.instance();
         isPowered = false; isKickale = false; isThrowable = false; isJacketed = false;
         powerBombUsed = false; isDiseased = false;
         moveTimer = new Timer((int) (80/Math.pow(1.2, getSpeed()-1)), this); moveTimer.start();
@@ -27,7 +27,7 @@ public class Player extends MObject implements Observer{
         direction = 'd'; symbol = 1; PACE = 8; gestureMax = 3;
         height = 42; width = 16;
         life = info[0]; score = info[1]; bombnum = info[2]; bombpower = info[3]; speed = info[4];
-        bombs = bombs.instance();
+        bombs = BombSeq.instance();
         isPowered = info[5]==1; isKickale = info[6]==1; isThrowable = info[7]==1; isJacketed = info[8]==1;
         powerBombUsed = false; isDiseased = false;
         moveTimer = new Timer((int) (80/Math.pow(1.2, speed-1)), this); moveTimer.start();

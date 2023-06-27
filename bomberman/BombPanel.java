@@ -67,8 +67,8 @@ public class BombPanel extends JPanel implements KeyListener, Observer, ActionLi
         item=new Vector();
         enemy=new Vector();
         map = Map.instance("Map/map."+stage, is2play);
-        bombs = bombs.instance();
         numPlayer=0; numEnemy=0; numItem=0; numBomb=0;
+        bombs = BombSeq.instance();
         int p=0;
         for(i=0;i<13;i++){
             for(j=0;j<15;j++){

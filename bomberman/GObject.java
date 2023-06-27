@@ -13,11 +13,11 @@ public abstract class GObject extends Observable {
     public GObject(int i, int x, int y) {
         id = i;
         positionx = x; positiony = y;
-        map = map.instance();
+        map = Map.instance();
     }
     public GObject(int x, int y) {
         positionx = x; positiony = y;
-        map = map.instance();
+        map = Map.instance();
     }
     public int block() { return (getCPositiony())/SIZE*15+(getCPositionx())/SIZE; }
     public int block(int y, int x) { return y/SIZE*15+x/SIZE; }
